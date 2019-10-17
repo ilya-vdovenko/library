@@ -34,11 +34,14 @@ public class BookRepository {
 
     }
 
+    public Book findBookByISN(Book book) {
+        return jdbctemplate.queryForObject("Select * from books where isn = "+book.getISN(), new BookRowMapper());
+    }
+
     public List<Book> getBooks() {
         return jdbctemplate.query("Select * from books order by author asc", new BookRowMapper());
     }
 
-    //TODO: understand how to transfer username
     public void takeBook(Book which_book, User whoTake) {
         jdbctemplate.update("Update books set user = ? where isn = ?", whoTake.getUsername(), which_book.getISN());
     }
@@ -55,9 +58,15 @@ public class BookRepository {
                 new_book.getTitle());
     }
 
-    //TODO: may be parametr must be object?
-    public void delBook(String isn) {
-        jdbctemplate.update("Delete from books where isn = ?", isn);
+    public void editBook(Book edit_book, String last_isn) {
+        jdbctemplate.update("Update books set isn = ?, author = ?, title = ? where isn ="+last_isn,
+                edit_book.getISN(),
+                edit_book.getAuthor(),
+                edit_book.getTitle());
+    }
+
+    public void delBook(Book del_book) {
+        jdbctemplate.update("Delete from books where isn = ?", del_book.getISN());
     }
 
 }

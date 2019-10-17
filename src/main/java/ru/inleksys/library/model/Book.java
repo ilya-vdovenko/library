@@ -7,6 +7,10 @@ public class Book {
     private String Title;
     private String whoTook;
 
+    public Book() {
+
+    }
+
     public Book(String isn, String author, String title, String whoTook) {
         this.ISN = isn;
         this.Author = author;
