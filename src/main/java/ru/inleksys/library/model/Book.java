@@ -5,7 +5,14 @@ public class Book {
     private String ISN;
     private String Author;
     private String Title;
-    private User whoTook;
+    private String whoTook;
+
+    public Book(String isn, String author, String title, String whoTook) {
+        this.ISN = isn;
+        this.Author = author;
+        this.Title = title;
+        this.whoTook = whoTook;
+    }
 
     public String getISN() {
         return ISN;
@@ -20,7 +27,7 @@ public class Book {
     }
 
     public void setAuthor(String author) {
-        Author = author;
+        this.Author = author;
     }
 
     public String getTitle() {
@@ -28,14 +35,14 @@ public class Book {
     }
 
     public void setTitle(String title) {
-        Title = title;
+        this.Title = title;
     }
 
-    public User getWhoTook() {
+    public String getWhoTook() {
         return whoTook;
     }
 
-    public void setWhoTook(User whoTook) {
+    public void setWhoTook(String whoTook) {
         this.whoTook = whoTook;
     }
 }
