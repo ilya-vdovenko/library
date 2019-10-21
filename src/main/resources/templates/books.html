@@ -8,6 +8,17 @@
         $(function(){
             $("#includeHeader").load("static/header.html");
         });
+        var n = 6;
+        $(function(){
+            $("tr").slice(n).hide();
+        });
+        $(document).ready(function(){
+            $("#showMore").click(function(){
+                /*$("#data").get("/getbooks").slice(n);*/
+                $("tr").slice(n, n+5).show();
+                n+=5;
+            });
+        });
     </script>
 </head>
 <body>
@@ -31,6 +42,6 @@
             <td><a href="/books/delete">удалить</a></td>
         </tr>
 </table>
-<button type="button" onclick="alert('Добавь функцию')">Показать ещё</button>
+<button id="showMore" type="button">Показать ещё</button>
 </body>
 </html>
