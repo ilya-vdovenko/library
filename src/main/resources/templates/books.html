@@ -8,20 +8,22 @@
         $(function(){
             $("#includeHeader").load("static/header.html");
         });
-        var n = 6;
-        $(function(){
+
+        /*$(function(){
             $("tr").slice(n).hide();
-        });
+        });*/
+        var n = 6;
         $(document).ready(function(){
             $("#showMore").click(function(){
-                /*$("#data").get("/getbooks").slice(n);*/
-                $("tr").slice(n, n+5).show();
-                n+=5;
+                $.get("/books?from=1&to=15", function (data) {
+
+                });
             });
         });
     </script>
 </head>
 <body>
+<input type="date">
 <button type="button" onclick=> Добавить книгу</button>
 <h1>Список книг библиотеки</h1>
 <table>

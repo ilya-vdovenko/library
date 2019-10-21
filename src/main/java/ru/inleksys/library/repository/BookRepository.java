@@ -2,11 +2,13 @@ package ru.inleksys.library.repository;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jdbc.core.JdbcTemplate;
+import org.springframework.jdbc.core.PreparedStatementSetter;
 import org.springframework.jdbc.core.RowMapper;
 import org.springframework.stereotype.Repository;
 import ru.inleksys.library.model.Book;
 import ru.inleksys.library.model.User;
 
+import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.sql.SQLException;
 import java.util.List;
@@ -15,7 +17,7 @@ import java.util.List;
 public class BookRepository {
 
     private final JdbcTemplate jdbctemplate;
-   // private final int count_of_rows = 5;
+    //private final int count_of_rows = 5;
 
     private static final class BookRowMapper implements RowMapper<Book> {
         public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -29,7 +31,7 @@ public class BookRepository {
 
     @Autowired
     BookRepository(JdbcTemplate jdbc) {
-        //jdbc.setMaxRows(count_of_rows);
+        //jdbc.setFetchSize(count_of_rows);
         this.jdbctemplate = jdbc;
 
     }
@@ -38,8 +40,10 @@ public class BookRepository {
         return jdbctemplate.queryForObject("Select * from books where isn = "+book.getISN(), new BookRowMapper());
     }
 
-    public List<Book> getBooks() {
-        return jdbctemplate.query("Select * from books order by author asc", new BookRowMapper());
+    public List<Book> getBooks(int from, int to) {
+        return jdbctemplate.query("Select * from books order by author asc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY",
+                (PreparedStatement preparedStatement) -> { preparedStatement.setInt(1, from); preparedStatement.setInt(2, to);},
+                new BookRowMapper());
     }
 
     public void takeBook(Book which_book, User whoTake) {
