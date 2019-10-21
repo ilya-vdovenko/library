@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Книги</title>
+    <script src="webjars/jquery/3.0.0/jquery.js"></script>
+    <script>
+        $(function(){
+            $("#includeHeader").load("static/header.html");
+        });
+    </script>
+</head>
+<body>
+<button type="button" onclick=> Добавить книгу</button>
+<h1>Список книг библиотеки</h1>
+<table>
+    <thead>
+        <tr>
+            <th>ISN</th>
+            <th>Автор</th>
+            <th>Название</th>
+            <th>Кем взята</th>
+            <th>Удалить</th>
+        </tr>
+    </thead>
+        <tr th:each="book : ${book_list}">
+            <td><a href="/books/edit" th:text="${book.ISN}"></a></td>
+            <td th:text="${book.author}"></td>
+            <td th:text="${book.title}" ></td>
+            <td>user</td>
+            <td><a href="/books/delete">удалить</a></td>
+        </tr>
+</table>
+<button type="button" onclick="alert('Добавь функцию')">Показать ещё</button>
+</body>
+</html>
