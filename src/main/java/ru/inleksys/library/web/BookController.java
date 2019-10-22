@@ -22,11 +22,17 @@ public class BookController {
         this.br = br;
     }
 
-    @GetMapping("/books")
-    public String showBooks(Model model,
+    @GetMapping("/books_list")
+    public String getBooks(Model model,
                             @RequestParam(defaultValue="1") int from,
                             @RequestParam(defaultValue="5") int to) {
         model.addAttribute("book_list", br.getBooks(from, to));
+        return "books_list";
+
+    }
+
+    @GetMapping("/books")
+    public String showBooks() {
         return "books";
     }
 

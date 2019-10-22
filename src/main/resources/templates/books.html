@@ -7,17 +7,24 @@
     <script>
         $(function(){
             $("#includeHeader").load("static/header.html");
+            $.get("/books_list?from=0&to=5 td", function(data) {
+                //if(data)
+                $("table").append(data);
+                //else alert("Данных нет");
+            });
         });
 
-        /*$(function(){
-            $("tr").slice(n).hide();
-        });*/
         var n = 6;
         $(document).ready(function(){
             $("#showMore").click(function(){
-                $.get("/books?from=1&to=15", function (data) {
-
+                $.get("/books_list?from="+n+"&to="+(n+5)+" #table_tr", function(data) {
+                    //if(data!=null) {
+                        $("table_tr").append(data);
+                        n += 5;
+                    //}
+                    //else alert("Все данные загружены")
                 });
+
             });
         });
     </script>
@@ -36,13 +43,7 @@
             <th>Удалить</th>
         </tr>
     </thead>
-        <tr th:each="book : ${book_list}">
-            <td><a href="/books/edit" th:text="${book.ISN}"></a></td>
-            <td th:text="${book.author}"></td>
-            <td th:text="${book.title}" ></td>
-            <td>user</td>
-            <td><a href="/books/delete">удалить</a></td>
-        </tr>
+    <tr id="table_tr"> </tr>
 </table>
 <button id="showMore" type="button">Показать ещё</button>
 </body>
