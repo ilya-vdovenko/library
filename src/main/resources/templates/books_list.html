@@ -1,0 +1,18 @@
+<!DOCTYPE html>
+<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Title</title>
+</head>
+<body>
+<table>
+     <tr id="tr_table" th:each="book : ${book_list}">
+          <td id="isn"><a href="/books/edit" th:text="${book.ISN}"></a></td>
+          <td th:text="${book.author}"></td>
+          <td th:text="${book.title}" ></td>
+          <td>user</td>
+          <td><a href="/books/delete">удалить</a></td>
+     </tr>
+</table>
+</body>
+</html>
