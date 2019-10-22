@@ -6,24 +6,32 @@
     <script src="webjars/jquery/3.0.0/jquery.js"></script>
     <script>
         $(function(){
-            $("#includeHeader").load("static/header.html");
-            $.get("/books_list?from=0&to=5 td", function(data) {
+            //$("#includeHeader").load("static/header.html");
+            //$.get("/books_list?from=0&to=5 #tr_table", function(data) {
                 //if(data)
-                $("table").append(data);
+                //$("#body").append(data);
                 //else alert("Данных нет");
+            $("#body").load("/books_list #tr_table", function() {
+                $("#hi").append($(this).find("#tr_table").html());
             });
+            //});
         });
 
-        var n = 6;
+        var n = 5;
         $(document).ready(function(){
             $("#showMore").click(function(){
-                $.get("/books_list?from="+n+"&to="+(n+5)+" #table_tr", function(data) {
+                //$.get("/books_list?from="+n+"&to="+(n+5)+" #table_tr", function(data) {
                     //if(data!=null) {
-                        $("table_tr").append(data);
-                        n += 5;
+                  //      $("table").append(data);
+                 //       n += 5;
                     //}
                     //else alert("Все данные загружены")
+                //});
+                $("#body").load("/books_list?from="+n+"&count=5 #tr_table", function() {
+                    $("#hi").append($(this).find("#tr_table").html());
+                    n *= 2;
                 });
+
 
             });
         });
@@ -35,15 +43,17 @@
 <h1>Список книг библиотеки</h1>
 <table>
     <thead>
-        <tr>
-            <th>ISN</th>
-            <th>Автор</th>
-            <th>Название</th>
-            <th>Кем взята</th>
-            <th>Удалить</th>
-        </tr>
+    <tr>
+        <th>ISN</th>
+        <th>Автор</th>
+        <th>Название</th>
+        <th>Кем взята</th>
+        <th>Удалить</th>
+    </tr>
     </thead>
-    <tr id="table_tr"> </tr>
+    <tbody id="body">
+    </tbody>
+   <!-- <tr id="tr_table"></tr> -->
 </table>
 <button id="showMore" type="button">Показать ещё</button>
 </body>

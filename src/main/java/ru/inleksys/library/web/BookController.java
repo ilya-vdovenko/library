@@ -24,9 +24,9 @@ public class BookController {
 
     @GetMapping("/books_list")
     public String getBooks(Model model,
-                            @RequestParam(defaultValue="1") int from,
-                            @RequestParam(defaultValue="5") int to) {
-        model.addAttribute("book_list", br.getBooks(from, to));
+                            @RequestParam(defaultValue="0") int from,
+                            @RequestParam(defaultValue="5") int count) {
+        model.addAttribute("book_list", br.getBooks(from, count));
         return "books_list";
 
     }

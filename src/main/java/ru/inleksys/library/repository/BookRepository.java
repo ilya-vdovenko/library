@@ -40,9 +40,9 @@ public class BookRepository {
         return jdbctemplate.queryForObject("Select * from books where isn = "+book.getISN(), new BookRowMapper());
     }
 
-    public List<Book> getBooks(int from, int to) {
+    public List<Book> getBooks(int from, int count) {
         return jdbctemplate.query("Select * from books order by author asc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY",
-                (PreparedStatement preparedStatement) -> { preparedStatement.setInt(1, from); preparedStatement.setInt(2, to);},
+                (PreparedStatement preparedStatement) -> { preparedStatement.setInt(1, from); preparedStatement.setInt(2, count);},
                 new BookRowMapper());
     }
 
