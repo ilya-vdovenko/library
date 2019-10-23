@@ -1,43 +1,22 @@
 <!DOCTYPE html>
-<html lang="en" xmlns:th="http://www.thymeleaf.org">
+<html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
     <title>Книги</title>
     <script src="webjars/jquery/3.0.0/jquery.js"></script>
-    <script>
-        //$(function(){
-            //$("#includeHeader").load("static/header.html");
-        //});
-
-        var n = 5;
-        $(document).ready(function(){
-
-            $("#t_body").load("/books_list?from=0&to=5 #tr_table");
-
-            $("#showMore").click(function(){
-                $.get("/books_list?from="+n+"&count=5", function(data) {
-                    if($.trim($(data).find("#isn").html())=='') {
-                        alert("Все данные загружены");
-                    }
-                    else {
-                        $("#t_body").append($(data).find("#tr_table"));
-                        n*=2;
-                    }
-
-                });
-            });
-        });
-    </script>
+    <script src="table.js"></script>
+    <link rel="stylesheet" href="table.css">
 </head>
 <body>
+<div th:insert="~{header :: insert}"></div>
 <button type="button" onclick=> Добавить книгу</button>
 <h1>Список книг библиотеки</h1>
 <table>
     <thead>
     <tr>
         <th>ISN</th>
-        <th>Автор</th>
-        <th>Название</th>
+        <th id="author_th">Автор</th>
+        <th id="title_th">Название</th>
         <th>Кем взята</th>
         <th>Удалить</th>
     </tr>

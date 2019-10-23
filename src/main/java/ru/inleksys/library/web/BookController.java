@@ -5,7 +5,6 @@ import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
 import ru.inleksys.library.model.Book;
@@ -25,8 +24,10 @@ public class BookController {
     @GetMapping("/books_list")
     public String getBooks(Model model,
                             @RequestParam(defaultValue="0") int from,
-                            @RequestParam(defaultValue="5") int count) {
-        model.addAttribute("book_list", br.getBooks(from, count));
+                            @RequestParam(defaultValue="5") int count,
+                            @RequestParam(defaultValue="author") String by,
+                            @RequestParam(defaultValue="asc") String order) {
+        model.addAttribute("book_list", br.getBooks(from, count, by, order));
         return "books_list";
 
     }

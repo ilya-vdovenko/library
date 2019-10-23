@@ -17,7 +17,6 @@ import java.util.List;
 public class BookRepository {
 
     private final JdbcTemplate jdbctemplate;
-    //private final int count_of_rows = 5;
 
     private static final class BookRowMapper implements RowMapper<Book> {
         public Book mapRow(ResultSet rs, int rowNum) throws SQLException {
@@ -31,7 +30,6 @@ public class BookRepository {
 
     @Autowired
     BookRepository(JdbcTemplate jdbc) {
-        //jdbc.setFetchSize(count_of_rows);
         this.jdbctemplate = jdbc;
 
     }
@@ -40,10 +38,9 @@ public class BookRepository {
         return jdbctemplate.queryForObject("Select * from books where isn = "+book.getISN(), new BookRowMapper());
     }
 
-    public List<Book> getBooks(int from, int count) {
-        return jdbctemplate.query("Select * from books order by author asc OFFSET ? ROWS FETCH NEXT ? ROWS ONLY",
-                (PreparedStatement preparedStatement) -> { preparedStatement.setInt(1, from); preparedStatement.setInt(2, count);},
-                new BookRowMapper());
+    public List<Book> getBooks(int from, int count, String by, String order) {
+              return jdbctemplate.query("Select * from books order by "+by+" "+order+" OFFSET ? ROWS FETCH NEXT ? ROWS ONLY",
+                new BookRowMapper(), from, count);
     }
 
     public void takeBook(Book which_book, User whoTake) {
