@@ -7,11 +7,12 @@
 <body>
 <table>
      <tr id="tr_table" th:each="book : ${book_list}">
-          <td id="isn"><a href="/books/edit" th:text="${book.ISN}"></a></td>
-          <td th:text="${book.author}"></td>
-          <td th:text="${book.title}" ></td>
-          <td>user</td>
-          <td><a href="/books/delete">удалить</a></td>
+         <td id="isn"><a href="/books/edit" th:text="${book.ISN}"></a></td>
+         <td id="author" th:text="${book.author}"></td>
+         <td id="title" th:text="${book.title}" ></td>
+         <td>user</td>
+         <td class="del"><button type="submit">del</button></td>
+         <!--<a th:href="@{/books/delete(isn=${book.ISN})}"-->
      </tr>
 </table>
 </body>

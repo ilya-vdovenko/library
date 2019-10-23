@@ -66,8 +66,8 @@ public class BookRepository {
                 edit_book.getTitle());
     }
 
-    public void delBook(Book del_book) {
-        jdbctemplate.update("Delete from books where isn = ?", del_book.getISN());
+    public void delBook(String isn) {
+        jdbctemplate.update("Delete from books where isn = ?", isn);
     }
 
 }

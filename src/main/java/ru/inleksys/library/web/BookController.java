@@ -4,12 +4,13 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.*;
 import ru.inleksys.library.model.Book;
 import ru.inleksys.library.model.User;
 import ru.inleksys.library.repository.BookRepository;
+
+import java.util.Collection;
+import java.util.Map;
 
 @Controller
 public class BookController {
@@ -65,9 +66,14 @@ public class BookController {
     }
 
     @GetMapping("/books/delete")
-    public String deleteBook(Book del_book) {
-        br.delBook(del_book);
-        return "redirect:/books";
+    public String deleteBook(Model model,
+                             @RequestParam String isn,
+                             @RequestParam int from,
+                             @RequestParam String by,
+                             @RequestParam String order) {
+        br.delBook(isn);
+        //return "books_list?from="+from+"&by="+by+"&order="+order;
+        return getBooks(model, from, 1, by, order);
     }
 
     @GetMapping("/books/edit")

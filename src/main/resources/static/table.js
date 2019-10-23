@@ -56,4 +56,20 @@ $(document).ready(function(){
         if(title_order=="desc") title_order = "asc";
         else title_order = "desc";
     });
+
+    $("table #t_body").on('click', '.del', function () {
+        var tr = $(this).closest('tr');
+        var isn = tr.find('#isn').text();
+        var author = tr.find('#author').text();
+        var title = tr.find('#title').text();
+        if (window.confirm( "isn: " + isn +"\n"+
+                            "автор: " + author +"\n"+
+                            "название: "+ title +"\n"+
+                            "Удалить книгу?")) {
+            tr.remove();
+            $.get("/books/delete?isn="+isn+"&from="+(from-1)+"&count=1&by="+by+"&order="+order, function (data) {
+                $("#t_body").append($(data).find("#tr_table"));
+            });
+        }
+    });
 });
