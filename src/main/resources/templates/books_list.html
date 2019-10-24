@@ -10,9 +10,21 @@
          <td id="isn"><a href="/books/edit" th:text="${book.ISN}"></a></td>
          <td id="author" th:text="${book.author}"></td>
          <td id="title" th:text="${book.title}" ></td>
-         <td>user</td>
+         <td id="user" th:with="bwt=${book.whoTook}, user=${#authentication.getName()}"
+             th:switch="(${bwt}!=null and ${bwt}!=${user})">
+             <span th:case="true" th:text="${bwt}"></span>
+             <span th:case="false">
+                 <span th:switch="${bwt}==${user}">
+                     <span th:case="true">
+                         <button class="return" th:value="${user}" type="submit">вернуть</button>
+                     </span>
+                     <span th:case="false">
+                         <button class="take" th:value="${user}" type="submit">взять</button>
+                     </span>
+                 </span>
+             </span>
+         </td>
          <td class="del"><button type="submit">del</button></td>
-         <!--<a th:href="@{/books/delete(isn=${book.ISN})}"-->
      </tr>
 </table>
 </body>

@@ -1,11 +1,12 @@
 INSERT INTO USERS values ('user1', '$2a$10$N2deOkNlKWG9TYw86jvWcuap1Oo8rANkMVLd0JZNuK4lJj2Hc3y/e');//H@yfU=64
+INSERT INTO USERS values ('test_user2', 'nope_password');
 
 INSERT INTO BOOKS values ('978-5-17-090538-6','Дмитрий Глуховский','Метро 2035', 'user1');
 INSERT INTO BOOKS values ('978-5-699-64932-7','Харуки Мураками','Кафка на пляже', null);
 INSERT INTO BOOKS values ('978-5-699-93644-1','Блейк Крауч','Темная материя', null);
 INSERT INTO BOOKS values ('978-5-86471-673-1','Халед Хоссейни','Бегущий за ветром', 'user1');
 INSERT INTO BOOKS values ('978-5-389-09934-0','Лиана Мориарти','Большая маленькая ложь', null);
-INSERT INTO BOOKS values ('978-5-91657-724-2','Генри Форд','Моя жизнь, мои достижения', null);
+INSERT INTO BOOKS values ('978-5-91657-724-2','Генри Форд','Моя жизнь, мои достижения', 'test_user2');
 INSERT INTO BOOKS values ('978-5-227-03046-7','Сунь-цзы','Искусство войны', null);
 INSERT INTO BOOKS values ('978-5-389-09017-0','Ю Несбё','Сын', null);
 INSERT INTO BOOKS values ('978-5-386-06493-8','Джеймс Боуэн','Уличный кот по имени Боб. Как человек и кот обрели надежду на улицах Лондона', null);

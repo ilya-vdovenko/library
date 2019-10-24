@@ -1,6 +1,7 @@
 package ru.inleksys.library.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.Errors;
@@ -11,6 +12,8 @@ import ru.inleksys.library.repository.BookRepository;
 
 import java.util.Collection;
 import java.util.Map;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Controller
 public class BookController {
@@ -38,18 +41,17 @@ public class BookController {
         return "books";
     }
 
-    //TODO: understand how to transfer username
-    @PostMapping("/books/take")
-    public String takeBookByUser(Book which_book, User whoTake) {
-        br.takeBook(which_book, whoTake);
-        return "redirect:/books";
+    @GetMapping("/books/take")
+    @ResponseStatus(OK)
+    public void takeBookByUser( @RequestParam String isn,
+                                @RequestParam String whoTake) {
+        br.takeBook(isn, whoTake);
     }
 
-    //TODO: understand how to transfer username
-    @PostMapping("/books/return")
-    public String returnBookByUser(Book which_book) {
-        br.returnBook(which_book);
-        return "redirect:/books";
+    @GetMapping("/books/return")
+    @ResponseStatus(OK)
+    public void returnBookByUser(@RequestParam String isn) {
+        br.returnBook(isn);
     }
 
     @GetMapping("/books/new")
@@ -65,14 +67,13 @@ public class BookController {
         return "redirect:/books";
     }
 
-    @GetMapping("/books/delete")
+    @PostMapping("/books/delete")
     public String deleteBook(Model model,
                              @RequestParam String isn,
                              @RequestParam int from,
                              @RequestParam String by,
                              @RequestParam String order) {
         br.delBook(isn);
-        //return "books_list?from="+from+"&by="+by+"&order="+order;
         return getBooks(model, from, 1, by, order);
     }
 

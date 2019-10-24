@@ -43,13 +43,12 @@ public class BookRepository {
                 new BookRowMapper(), from, count);
     }
 
-    public void takeBook(Book which_book, User whoTake) {
-        jdbctemplate.update("Update books set user = ? where isn = ?", whoTake.getUsername(), which_book.getISN());
+    public void takeBook(String isn, String whoTake) {
+        jdbctemplate.update("Update books set user = ? where isn = ?", whoTake, isn);
     }
 
-
-    public void returnBook(Book which_book) {
-        jdbctemplate.update("Update books set user = null where isn = ?", which_book.getISN());
+    public void returnBook(String isn) {
+        jdbctemplate.update("Update books set user = null where isn = ?", isn);
     }
 
     public void addBook(Book new_book) {

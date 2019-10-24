@@ -6,6 +6,6 @@
 </head>
 <body>
     <div th:insert="~{header :: insert}"></div>
-    Home page of library
+    <span th:text="'Welcome to library, ' + ${#authentication.getName()} + '!'"></span>
 </body>
 </html>

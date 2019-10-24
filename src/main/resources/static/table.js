@@ -72,4 +72,23 @@ $(document).ready(function(){
             });
         }
     });
+
+    $("table #t_body").on('click', '.return', function () {
+        var tr = $(this).closest('tr');
+        var isn = tr.find('#isn').text();
+        $.get("/books/return?isn="+isn);
+        var button = tr.find('.return');
+        button.attr('class', 'take');
+        button.html("взять");
+    });
+
+    $("table #t_body").on('click', '.take', function () {
+        var tr = $(this).closest('tr');
+        var isn = tr.find('#isn').text();
+        var button = tr.find('.take');
+        var user = button.val();
+        $.get("/books/take?isn="+isn+"&whoTake="+user);
+        button.attr('class', 'return');
+        button.html("вернуть");
+    });
 });
