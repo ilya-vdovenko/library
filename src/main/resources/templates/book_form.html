@@ -9,9 +9,24 @@
             </div>
             <div class="modal-body">
                 <form method="post" th:object="${book}" th:action="@{/books/new}">
-                    <label>ISN</label><input type="text" th:field="*{ISN}"/><br/>
-                    <label>Автор</label><input type="text" th:field="*{author}"/><br/>
-                    <label>Название</label><input type="text" th:field="*{title}"/><br/>
+                    <div class="errors" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li th:each="err : ${#fields.errors('*')}"
+                                th:text="${err}">Input is incorrect</li>
+                        </ul>
+                    </div>
+                    <label th:class="${#fields.hasErrors('ISN')}? 'error'">
+                        ISN</label>
+                    <input type="text" th:field="*{ISN}"
+                           th:class="${#fields.hasErrors('ISN')}? 'error'"/><br/>
+                    <label th:class="${#fields.hasErrors('author')}? 'error'">
+                        Автор</label>
+                    <input type="text" th:field="*{author}"
+                           th:class="${#fields.hasErrors('author')}? 'error'"/><br/>
+                    <label th:class="${#fields.hasErrors('title')}? 'error'">
+                        Название</label>
+                    <input type="text" th:field="*{title}"
+                           th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
                     <div class="modal-footer">
                         <button type="submit" class="btn btn-primary">Сохранить</button>
                         <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>

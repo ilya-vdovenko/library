@@ -1,19 +1,15 @@
 package ru.inleksys.library.web;
 
 import org.springframework.beans.factory.annotation.Autowired;
-import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.inleksys.library.model.Book;
-import ru.inleksys.library.model.User;
 import ru.inleksys.library.repository.BookRepository;
 
 import javax.validation.Valid;
-import java.util.Collection;
-import java.util.Map;
 
 import static org.springframework.http.HttpStatus.OK;
 

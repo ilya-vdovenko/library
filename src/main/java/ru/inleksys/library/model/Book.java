@@ -1,6 +1,7 @@
 package ru.inleksys.library.model;
 
 import javax.validation.constraints.NotEmpty;
+import javax.validation.constraints.Size;
 
 public class Book {
 
