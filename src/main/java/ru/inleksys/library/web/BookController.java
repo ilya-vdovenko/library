@@ -64,7 +64,7 @@ public class BookController {
     public String processCreationForm(Book new_book, Errors errors) {
         if (errors.hasErrors()) return "book_form";
         br.addBook(new_book);
-        return "redirect:/books";
+        return "book_form";
     }
 
     @PostMapping("/books/delete")

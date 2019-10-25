@@ -1,13 +1,9 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
-<head>
-    <meta charset="UTF-8">
-    <title>Title</title>
-</head>
 <body>
 <table>
      <tr id="tr_table" th:each="book : ${book_list}">
-         <td id="isn"><a href="/books/edit" th:text="${book.ISN}"></a></td>
+         <td id="isn"><a class="text-light" th:href="@{/books/edit(isn=${book.ISN})}" th:text="${book.ISN}"></a></td>
          <td id="author" th:text="${book.author}"></td>
          <td id="title" th:text="${book.title}" ></td>
          <td id="user" th:with="bwt=${book.whoTook}, user=${#authentication.getName()}"

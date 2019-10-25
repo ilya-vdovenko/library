@@ -5,7 +5,7 @@
     <title>Библиотека</title>
 </head>
 <body>
-    <div th:insert="~{header :: insert}"></div>
+    <div th:insert="~{/fragments/header :: insert}"></div>
     <span th:text="'Welcome to library, ' + ${#authentication.getName()} + '!'"></span>
 </body>
 </html>

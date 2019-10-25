@@ -1,32 +1,37 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
     <title>Книги</title>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
     <script src="webjars/jquery/3.0.0/jquery.js"></script>
-    <script src="table.js"></script>
-    <link rel="stylesheet" href="table.css">
+    <script src="books_table.js"></script>
+    <!--<link rel="stylesheet" href="table.css">-->
+    <link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.css"/>
+    <script src="webjars/popper.js/1.14.3/popper.js" ></script>
+    <script src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
 </head>
 <body>
-<div th:insert="~{header :: insert}"></div>
-<form>
-    User name:<br>
-    <input type="text" name="username"><br>
-</form>
-<button type="button" onclick=> Добавить книгу</button>
-<h1>Список книг библиотеки</h1>
-<table>
-    <thead>
-    <tr>
-        <th>ISN</th>
-        <th id="author_th">Автор</th>
-        <th id="title_th">Название</th>
-        <th>Кем взята</th>
-        <th>Удалить</th>
-    </tr>
-    </thead>
-    <tbody id="t_body"></tbody>
-</table>
-<button id="showMore" type="button">Показать ещё</button>
+<div class="container">
+    <div th:insert="~{/fragments/header :: insert}"></div>
+    <h2>Список книг библиотеки</h2>
+    <button type="button" id="myBtn" class="btn btn-primary text-light">
+        Добавить книгу
+    </button>
+    <table class="table-responsive-md bg-info text-white table-hover ">
+        <thead class="thead-dark">
+        <tr>
+            <th>ISN</th>
+            <th id="author_th">Автор</th>
+            <th id="title_th">Название</th>
+            <th>Кем взята</th>
+            <th>Удалить</th>
+        </tr>
+        </thead>
+        <tbody id="t_body"></tbody>
+    </table>
+    <button id="showMore" type="button" class="btn btn-outline-primary">Показать ещё</button>
+</div>
+<div id="BookModal"></div>
 </body>
 </html>

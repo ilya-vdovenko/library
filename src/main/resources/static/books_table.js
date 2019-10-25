@@ -8,7 +8,7 @@ $(document).ready(function(){
     var title_order = "asc";
     var from = 5;
 
-    $("#author_th").css({'border-style':'solid', 'border-color':'#4db8ff'});
+    //$("#author_th").css({'border-style':'solid', 'border-color':'#4db8ff'});
 
     $("#showMore").click(function(){
         $.get("/books_list?from="+from+"&by="+by+"&order="+order, function(data) {
@@ -29,8 +29,8 @@ $(document).ready(function(){
 
         $("#t_body").load("/books_list?from=0&by=author&order="+author_order+" #tr_table");
 
-        $("#title_th").css({'border-style':'solid', 'border-color' : ''});
-        $(this).css({'border-style':'solid', 'border-color':'#4db8ff'});
+        $("#title_th").css('background-color','');
+        $(this).css('background-color','#4db8ff');
 
         from = 5;
         by = "author";
@@ -46,8 +46,8 @@ $(document).ready(function(){
 
         $("#t_body").load("/books_list?from=0&by=title&order="+title_order+" #tr_table");
 
-        $("#author_th").css({'border-style':'solid', 'border-color' : ''});
-        $(this).css({'border-style':'solid', 'border-color':'#4db8ff'});
+        $("#author_th").css('background-color','');
+        $(this).css('background-color','#4db8ff');
 
         from = 5;
         by = "title";
@@ -90,5 +90,11 @@ $(document).ready(function(){
         $.get("/books/take?isn="+isn+"&whoTake="+user);
         button.attr('class', 'return');
         button.html("вернуть");
+    });
+
+    $('#myBtn').click(function(){
+        $('#BookModal').load("/books/new .modal",function(){
+            $('.modal').modal();
+        });
     });
 });
