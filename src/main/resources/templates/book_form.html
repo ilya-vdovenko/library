@@ -1,14 +1,14 @@
 <!DOCTYPE html>
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
-<div class="modal" id="BookModal">
+<div class="modal fade" id="BookModal">
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title">Внесение данных книги</h4>
             </div>
             <div class="modal-body">
-                <form method="post" th:object="${book}" th:action="@{/books/new}">
+                <form id="book_form" class="form-text" method="post" th:object="${book}" th:action="@{/books/new}">
                     <div class="errors" th:if="${#fields.hasErrors('*')}">
                         <ul>
                             <li th:each="err : ${#fields.errors('*')}"
@@ -27,11 +27,15 @@
                         Название</label>
                     <input type="text" th:field="*{title}"
                            th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
-                    <div class="modal-footer">
-                        <button type="submit" class="btn btn-primary">Сохранить</button>
-                        <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
-                    </div>
                 </form>
+                <div class="modal-footer">
+                    <button id="submitButton" type="button" class="btn btn-danger"
+                            onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
+                                $('#book_form').remove();
+                                $('.modal-body').prepend($(data).find('#book_form'));
+                            });">Сохранить</button>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                </div>
             </div>
         </div>
     </div>
