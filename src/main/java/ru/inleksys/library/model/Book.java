@@ -1,9 +1,14 @@
 package ru.inleksys.library.model;
 
+import javax.validation.constraints.NotEmpty;
+
 public class Book {
 
+    @NotEmpty
     private String ISN;
+    @NotEmpty
     private String Author;
+    @NotEmpty
     private String Title;
     private String whoTook;
 

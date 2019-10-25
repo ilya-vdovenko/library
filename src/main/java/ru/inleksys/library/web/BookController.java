@@ -4,12 +4,14 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.HttpStatus;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.inleksys.library.model.Book;
 import ru.inleksys.library.model.User;
 import ru.inleksys.library.repository.BookRepository;
 
+import javax.validation.Valid;
 import java.util.Collection;
 import java.util.Map;
 
@@ -56,18 +58,21 @@ public class BookController {
 
     @GetMapping("/books/new")
     public String initCreationForm(Model model) {
-        model.addAttribute(new Book());
+        model.addAttribute("book", new Book());
         return "book_form";
     }
 
     @PostMapping("/books/new")
-    public String processCreationForm(Book new_book, Errors errors) {
-        if (errors.hasErrors()) return "book_form";
+    public String processCreationForm(@Valid Book new_book, BindingResult result, Model model) {
+        if (result.hasErrors()) {
+            model.addAttribute("book",new_book);
+            return "book_form";
+        }
         br.addBook(new_book);
-        return "book_form";
+        return "redirect:/books";
     }
 
-    @PostMapping("/books/delete")
+    @GetMapping("/books/delete")
     public String deleteBook(Model model,
                              @RequestParam String isn,
                              @RequestParam int from,
