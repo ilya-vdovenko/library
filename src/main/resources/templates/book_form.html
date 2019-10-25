@@ -8,10 +8,10 @@
                 <h4 class="modal-title">Внесение данных книги</h4>
             </div>
             <div class="modal-body">
-                <form id="book_form" class="form-text" method="post" th:object="${book}" th:action="@{/books/new}">
+                <form id="book_form" method="post" th:object="${book}" th:action="@{/books/new}">
                     <div class="errors" th:if="${#fields.hasErrors('*')}">
                         <ul>
-                            <li th:each="err : ${#fields.errors('*')}"
+                            <li style="color: red" th:each="err : ${#fields.errors('*')}"
                                 th:text="${err}">Input is incorrect</li>
                         </ul>
                     </div>
@@ -29,10 +29,13 @@
                            th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
                 </form>
                 <div class="modal-footer">
-                    <button id="submitButton" type="button" class="btn btn-danger"
+                    <button id="submitButton" type="button" class="btn btn-primary"
                             onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
                                 $('#book_form').remove();
                                 $('.modal-body').prepend($(data).find('#book_form'));
+                                if($(data).has('#books')) {
+                                    $('.modal').modal('hide');
+                                }
                             });">Сохранить</button>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
                 </div>

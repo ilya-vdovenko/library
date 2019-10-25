@@ -43,6 +43,10 @@ public class BookRepository {
                 new BookRowMapper(), from, count);
     }
 
+    public List<Book> getAllBooks() {
+        return jdbctemplate.query("Select * from books", new BookRowMapper());
+    }
+
     public void takeBook(String isn, String whoTake) {
         jdbctemplate.update("Update books set user = ? where isn = ?", whoTake, isn);
     }
