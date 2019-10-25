@@ -11,6 +11,7 @@
                 <form id="book_form" method="post" th:object="${book}" th:action="@{/books/new}">
                     <div class="errors" th:if="${#fields.hasErrors('*')}">
                         <ul>
+                            <!--TODO переделать как показываются сообщения об ошибках -->
                             <li style="color: red" th:each="err : ${#fields.errors('*')}"
                                 th:text="${err}">Input is incorrect</li>
                         </ul>
@@ -31,9 +32,12 @@
                 <div class="modal-footer">
                     <button id="submitButton" type="button" class="btn btn-primary"
                             onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
-                                $('#book_form').remove();
-                                $('.modal-body').prepend($(data).find('#book_form'));
-                                if($(data).has('#books')) {
+                                var book_form = $(data).find('#book_form');
+                                if(book_form.length>0) {
+                                    $('#book_form').remove();
+                                    $('.modal-body').prepend(book_form);
+                                }
+                                else {
                                     $('.modal').modal('hide');
                                 }
                             });">Сохранить</button>
