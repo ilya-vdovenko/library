@@ -4,7 +4,6 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
-import org.springframework.validation.Errors;
 import org.springframework.web.bind.annotation.*;
 import ru.inleksys.library.model.Book;
 import ru.inleksys.library.repository.BookRepository;
@@ -78,19 +77,23 @@ public class BookController {
         return getBooks(model, from, 1, by, order);
     }
 
+    private String lastISN = "";
+
     @GetMapping("/books/edit")
-    public String initUpdateBookForm(Book book, Model model) {
-        model.addAttribute(br.findBookByISN(book));
+    public String initUpdateBookForm(@RequestParam String isn, Model model) {
+        Book edit_book = br.findBookByISN(isn);
+        lastISN = isn;
+        model.addAttribute(edit_book);
         return "book_form";
     }
 
     @PostMapping("/books/edit")
-    public String processUpdateBookForm(Book edit_book, String last_isn, Errors errors) {
-        if (errors.hasErrors()) return "book_form";
-        else {
-            br.editBook(edit_book, last_isn);
-            return "redirect:/books";
+    public String processUpdateBookForm(@Valid Book edit_book, BindingResult result, Model model) {
+        if (result.hasErrors() && !(edit_book.getISN().equals(lastISN))) {
+            model.addAttribute("book",edit_book);
+            return "book_form";
         }
+        br.editBook(edit_book, lastISN);
+        return "redirect:/books";
     }
-
 }

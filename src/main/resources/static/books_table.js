@@ -92,9 +92,17 @@ $(document).ready(function(){
         button.html("вернуть");
     });
 
-    $('#myBtn').click(function(){
+    $('#addBtn').click(function(){
         $('#BookModal').load("/books/new .modal",function(){
             $('.modal').modal();
+        });
+    });
+
+    $("table #t_body").on('click', '#isn', function () {
+        var tr = $(this).closest('tr');
+        var isn = tr.find('#isn').text();
+        $('#BookModal').load("/books/edit?isn="+isn+" .modal",function(){
+           $('.modal').modal();
         });
     });
 });

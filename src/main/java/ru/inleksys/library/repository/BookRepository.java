@@ -34,8 +34,8 @@ public class BookRepository {
 
     }
 
-    public Book findBookByISN(Book book) {
-        return jdbctemplate.queryForObject("Select * from books where isn = "+book.getISN(), new BookRowMapper());
+    public Book findBookByISN(String isn) {
+        return jdbctemplate.queryForObject("Select * from books where isn = ?", new BookRowMapper(), isn);
     }
 
     public List<Book> getBooks(int from, int count, String by, String order) {
@@ -43,8 +43,8 @@ public class BookRepository {
                 new BookRowMapper(), from, count);
     }
 
-    public List<Book> getAllBooks() {
-        return jdbctemplate.query("Select * from books", new BookRowMapper());
+    public List<Book> getAllBooks(String isn) {
+        return jdbctemplate.query("Select * from books where isn = ?", new BookRowMapper(), isn);
     }
 
     public void takeBook(String isn, String whoTake) {
@@ -62,11 +62,12 @@ public class BookRepository {
                 new_book.getTitle());
     }
 
-    public void editBook(Book edit_book, String last_isn) {
-        jdbctemplate.update("Update books set isn = ?, author = ?, title = ? where isn ="+last_isn,
+    public void editBook(Book edit_book, String lastISN) {
+        jdbctemplate.update("Update books set isn = ?, author = ?, title = ? where isn = ?",
                 edit_book.getISN(),
                 edit_book.getAuthor(),
-                edit_book.getTitle());
+                edit_book.getTitle(),
+                lastISN);
     }
 
     public void delBook(String isn) {

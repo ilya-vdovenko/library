@@ -3,7 +3,7 @@
 <body>
 <table>
      <tr id="tr_table" th:each="book : ${book_list}">
-         <td id="isn"><a class="text-light" th:action="@{/books/edit(isn=${book.ISN})}" th:text="${book.ISN}"></a></td>
+         <td id="isn" th:text="${book.ISN}"></td> <!--th:action="@{/books/edit(isn=${book.ISN})}"-->
          <td id="author" th:text="${book.author}"></td>
          <td id="title" th:text="${book.title}" ></td>
          <td id="user" th:with="bwt=${book.whoTook}, user=${#authentication.getName()}"

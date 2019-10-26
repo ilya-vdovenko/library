@@ -15,12 +15,8 @@ public class UniqueValidator implements ConstraintValidator<Unique, Object> {
 
     @Override
     public boolean isValid(Object value, ConstraintValidatorContext context) {
-        List<Book> list = br.getAllBooks();
-        String isn = ((Book) value).getISN();
-        for(Book book: list) {
-            if(book.getISN().equals(isn))
-                return false;
-        }
-        return true;
+        String ISN = ((Book) value).getISN();
+        List<Book> list = br.getAllBooks(ISN);
+        return list.isEmpty();
     }
 }

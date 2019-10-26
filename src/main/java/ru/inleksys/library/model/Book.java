@@ -1,7 +1,6 @@
 package ru.inleksys.library.model;
 
 import ru.inleksys.library.Vallidation.Unique;
-
 import javax.validation.constraints.NotEmpty;
 
 @Unique
@@ -13,11 +12,10 @@ public class Book {
     private String Author;
     @NotEmpty
     private String Title;
+
     private String whoTook;
 
-    public Book() {
-
-    }
+    public Book() {}
 
     public Book(String isn, String author, String title, String whoTook) {
         this.ISN = isn;

@@ -5,10 +5,12 @@
     <div class="modal-dialog">
         <div class="modal-content">
             <div class="modal-header">
-                <h4 class="modal-title">Внесение данных книги</h4>
+                <h4 class="modal-title" th:with="text=${book.ISN==null} ? 'Добавление новой книги' : 'Изменение книги'"
+                th:text="${text}">Операция</h4>
             </div>
             <div class="modal-body">
-                <form id="book_form" method="post" th:object="${book}" th:action="@{/books/new}">
+                <form id="book_form" method="post" th:object="${book}"> <!--th:action="@{/books/new}"-->
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="errors" th:if="${#fields.hasErrors('*')}">
                         <ul>
                             <!--TODO переделать как показываются сообщения об ошибках -->
@@ -30,17 +32,36 @@
                            th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
                 </form>
                 <div class="modal-footer">
-                    <button id="submitButton" type="button" class="btn btn-primary"
-                            onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
-                                var book_form = $(data).find('#book_form');
-                                if(book_form.length>0) {
-                                    $('#book_form').remove();
-                                    $('.modal-body').prepend(book_form);
-                                }
-                                else {
-                                    $('.modal').modal('hide');
-                                }
+                    <span th:switch="${book.ISN==null}">
+                        <span th:case="true">
+                           <button type="button" class="btn btn-primary"
+                                   onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
+                                                var book_form = $(data).find('#book_form');
+                                                if(book_form.length>0) {
+                                                    $('#book_form').remove();
+                                                    $('.modal-body').prepend(book_form);
+                                                }
+                                                else {
+                                                    $('.modal').modal('hide');
+                                                    $('#book_form').remove();
+                                                }
                             });">Сохранить</button>
+                        </span>
+                        <span th:case="false">
+                             <button type="button" class="btn btn-primary"
+                                     onclick="$.post('/books/edit', $('#book_form').serialize(), function(data) {
+                                                var book_form = $(data).find('#book_form');
+                                                if(book_form.length>0) {
+                                                    $('#book_form').remove();
+                                                    $('.modal-body').prepend(book_form);
+                                                }
+                                                else {
+                                                    $('.modal').modal('hide');
+                                                    $('#book_form').remove();
+                                                }
+                            });">Изменить</button>
+                        </span>
+                    </span>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
                 </div>
             </div>
