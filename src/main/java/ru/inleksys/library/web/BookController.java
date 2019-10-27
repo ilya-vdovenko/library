@@ -89,7 +89,7 @@ public class BookController {
 
     @PostMapping("/books/edit")
     public String processUpdateBookForm(@Valid Book edit_book, BindingResult result, Model model) {
-        if (result.hasErrors() && !(edit_book.getISN().equals(lastISN))) {
+        if (result.hasErrors() & !(edit_book.getISN().equals(lastISN))) {
             model.addAttribute("book",edit_book);
             return "book_form";
         }

@@ -17,7 +17,7 @@ import static java.lang.annotation.RetentionPolicy.RUNTIME;
 @Retention(RUNTIME)
 @Constraint(validatedBy = UniqueValidator.class)
 public @interface Unique {
-    String message() default "Поле должно быть уникальным";
+    String message() default "Поле ISN должно быть уникальным";
 
     Class<?>[] groups() default {};
 

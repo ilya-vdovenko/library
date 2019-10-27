@@ -105,4 +105,19 @@ $(document).ready(function(){
            $('.modal').modal();
         });
     });
+
+    $("#BookModal").on('click', '.send', function (){
+        var url = $(this).val();
+        $.post(url, $('#book_form').serialize(), function(data) {
+            var book_form = $(data).find('#book_form');
+            if(book_form.length>0) {
+                $('#book_form').remove();
+                $('.modal-body').prepend(book_form);
+            }
+            else {
+                $('.modal').modal('hide');
+                $('#book_form').remove();
+            }
+        });
+    });
 });

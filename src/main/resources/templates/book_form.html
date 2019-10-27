@@ -9,57 +9,34 @@
                 th:text="${text}">Операция</h4>
             </div>
             <div class="modal-body">
-                <form id="book_form" method="post" th:object="${book}"> <!--th:action="@{/books/new}"-->
+                <form id="book_form" method="post" th:object="${book}">
                     <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
                     <div class="errors" th:if="${#fields.hasErrors('*')}">
                         <ul>
-                            <!--TODO переделать как показываются сообщения об ошибках -->
                             <li style="color: red" th:each="err : ${#fields.errors('*')}"
                                 th:text="${err}">Input is incorrect</li>
                         </ul>
                     </div>
                     <label th:class="${#fields.hasErrors('ISN')}? 'error'">
                         ISN</label>
-                    <input type="text" th:field="*{ISN}"
+                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{ISN}"
                            th:class="${#fields.hasErrors('ISN')}? 'error'"/><br/>
                     <label th:class="${#fields.hasErrors('author')}? 'error'">
                         Автор</label>
-                    <input type="text" th:field="*{author}"
+                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{author}"
                            th:class="${#fields.hasErrors('author')}? 'error'"/><br/>
                     <label th:class="${#fields.hasErrors('title')}? 'error'">
                         Название</label>
-                    <input type="text" th:field="*{title}"
+                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{title}"
                            th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
                 </form>
                 <div class="modal-footer">
                     <span th:switch="${book.ISN==null}">
                         <span th:case="true">
-                           <button type="button" class="btn btn-primary"
-                                   onclick="$.post('/books/new', $('#book_form').serialize(), function(data) {
-                                                var book_form = $(data).find('#book_form');
-                                                if(book_form.length>0) {
-                                                    $('#book_form').remove();
-                                                    $('.modal-body').prepend(book_form);
-                                                }
-                                                else {
-                                                    $('.modal').modal('hide');
-                                                    $('#book_form').remove();
-                                                }
-                            });">Сохранить</button>
+                            <button type="submit" class="send btn btn-primary" value="/books/new">Сохранить</button>
                         </span>
                         <span th:case="false">
-                             <button type="button" class="btn btn-primary"
-                                     onclick="$.post('/books/edit', $('#book_form').serialize(), function(data) {
-                                                var book_form = $(data).find('#book_form');
-                                                if(book_form.length>0) {
-                                                    $('#book_form').remove();
-                                                    $('.modal-body').prepend(book_form);
-                                                }
-                                                else {
-                                                    $('.modal').modal('hide');
-                                                    $('#book_form').remove();
-                                                }
-                            });">Изменить</button>
+                            <button type="submit" class="send btn btn-primary" value="/books/edit">Изменить</button>
                         </span>
                     </span>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
