@@ -13,6 +13,8 @@ import ru.inleksys.library.repository.UserRepository;
 
 import javax.validation.Valid;
 
+import java.util.List;
+
 import static org.springframework.http.HttpStatus.OK;
 
 @Controller
@@ -39,9 +41,17 @@ public class UserController {
 
     @PostMapping("/users/new")
     public String processCreationForm(@Valid User new_user, BindingResult result, Model model) {
-        if (result.hasErrors()) {
+        try {
+            ur.findUserByName(new_user.getUsername());
+            result.rejectValue("username", "Пользователь с таким именем уже существует");
             model.addAttribute("user", new_user);
             return "user_form";
+        }
+        catch (Exception exc) {
+            if (result.hasErrors()) {
+                model.addAttribute("user", new_user);
+                return "user_form";
+            }
         }
         ur.addUser(new_user);
         return "redirect:/users";
@@ -68,9 +78,19 @@ public class UserController {
     //TODO попробовать проверку тут из list
     @PostMapping("/users/edit")
     public String processUpdateBookForm(@Valid User edit_user, BindingResult result, Model model) {
-        if (result.hasErrors() & !(edit_user.getUsername().equals(lastName))) {
-            model.addAttribute("user",edit_user);
-            return "user_form";
+        try {
+            ur.findUserByName(edit_user.getUsername());
+            if (!edit_user.getUsername().equals(lastName)) {
+                result.rejectValue("username", "Duplicate",  "Пользователь с таким именем уже существует");
+                model.addAttribute("user", edit_user);
+                return "user_form";
+            }
+        }
+        catch (Exception exc) {
+            if (result.hasErrors()) {
+                model.addAttribute("user", edit_user);
+                return "user_form";
+            }
         }
         ur.editUser(edit_user, lastName, lastPass);
         return "redirect:/users";

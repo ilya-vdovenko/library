@@ -1,15 +1,13 @@
 package ru.inleksys.library.model;
 
-import javax.validation.constraints.NotEmpty;
 import javax.validation.constraints.Size;
 
 public class User {
 
-    @NotEmpty(message = "Поле Имя не может быть пустым")
     @Size(min = 5, max = 30, message = "Длинна поля Имя от {min} до {max} знаков")
     private String username;
-    @NotEmpty(message = "Поле Пароль не может быть пустым")
-    @Size(min = 8, max = 16, message = "Длинна поля Пароль от {min} до {max} знаков")
+
+    @Size(min = 8, max = 32, message = "Длинна поля Пароль от {min} до {max} знаков")
     private String password;
 
     public User() {
