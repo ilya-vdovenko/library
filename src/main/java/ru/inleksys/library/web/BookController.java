@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.validation.BindingResult;
+import org.springframework.web.bind.WebDataBinder;
 import org.springframework.web.bind.annotation.*;
 import ru.inleksys.library.model.Book;
 import ru.inleksys.library.repository.BookRepository;
@@ -16,11 +17,18 @@ import static org.springframework.http.HttpStatus.OK;
 public class BookController {
 
     private final BookRepository br;
+    private String lastISN = "";
 
     @Autowired
     public BookController(BookRepository br) {
         this.br = br;
     }
+
+    @InitBinder("book")
+    public void initPetBinder(WebDataBinder dataBinder) {
+        dataBinder.setValidator(new BookValidator(br, lastISN));
+    }
+
 
     @GetMapping("/books_list")
     public String getBooks(Model model,
@@ -77,8 +85,6 @@ public class BookController {
         return getBooks(model, from, 1, by, order);
     }
 
-    private String lastISN = "";
-
     @GetMapping("/books/edit")
     public String initUpdateBookForm(@RequestParam String isn, Model model) {
         Book edit_book = br.findBookByISN(isn);
@@ -89,7 +95,7 @@ public class BookController {
 
     @PostMapping("/books/edit")
     public String processUpdateBookForm(@Valid Book edit_book, BindingResult result, Model model) {
-        if (result.hasErrors() & !(edit_book.getISN().equals(lastISN))) {
+        if (result.hasErrors()) {
             model.addAttribute("book",edit_book);
             return "book_form";
         }
