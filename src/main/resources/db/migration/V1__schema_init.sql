@@ -10,4 +10,4 @@ CREATE TABLE books (
     user    VARCHAR(30)
 );
 
-ALTER TABLE books ADD CONSTRAINT fk_books_users FOREIGN KEY (user) REFERENCES users (username);
+ALTER TABLE books ADD CONSTRAINT fk_books_users FOREIGN KEY (user) REFERENCES users (username) ON UPDATE CASCADE ON DELETE SET NULL;

@@ -6,16 +6,16 @@
          <td id="isn" th:text="${book.ISN}"></td>
          <td id="author" th:text="${book.author}"></td>
          <td id="title" th:text="${book.title}" ></td>
-         <td id="user" th:with="bwt=${book.whoTook}, user=${#authentication.getName()}"
-             th:switch="(${bwt}!=null and ${bwt}!=${user})">
+         <td id="user" th:with="bwt=${book.whoTook}, userAuth=${#authentication.getName()}"
+             th:switch="(${bwt}!=null and ${bwt}!=${userAuth})">
              <span th:case="true" th:text="${bwt}"></span>
              <span th:case="false">
-                 <span th:switch="${bwt}==${user}">
+                 <span th:switch="${bwt}==${userAuth}">
                      <span th:case="true">
-                         <button class="return" th:value="${user}" type="submit">вернуть</button>
+                         <button class="return" th:value="${userAuth}" type="submit">вернуть</button>
                      </span>
                      <span th:case="false">
-                         <button class="take" th:value="${user}" type="submit">взять</button>
+                         <button class="take" th:value="${userAuth}" type="submit">взять</button>
                      </span>
                  </span>
              </span>

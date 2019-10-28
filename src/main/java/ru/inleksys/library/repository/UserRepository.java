@@ -45,11 +45,16 @@ public class UserRepository {
                 BCPE.encode(new_user.getPassword()));
     }
 
-    public void editUser(User edit_user, String lastName) {
-        jdbctemplate.update("Update users set username = ?, password = ? where username = ?",
-                edit_user.getUsername(),
-                BCPE.encode(edit_user.getPassword()),
-                lastName);
+    public void editUser(User edit_user, String lastName, String lastPass) {
+        String password;
+        if (!lastPass.equals(edit_user.getPassword())) {
+            if(BCPE.matches(lastPass, edit_user.getPassword())) {
+                password = lastPass;
+            }
+            else password = BCPE.encode(edit_user.getPassword());
+        } else password = lastPass;
+        String name = edit_user.getUsername();
+        jdbctemplate.update("Update users set username = ?, password = ? where username = ?", name, password, lastName);
     }
 
     public void delUser(String name) {

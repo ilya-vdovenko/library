@@ -7,32 +7,32 @@ public class User {
 
     @NotEmpty(message = "Поле Имя не может быть пустым")
     @Size(min = 5, max = 30, message = "Длинна поля Имя от {min} до {max} знаков")
-    private String Username;
+    private String username;
     @NotEmpty(message = "Поле Пароль не может быть пустым")
     @Size(min = 8, max = 16, message = "Длинна поля Пароль от {min} до {max} знаков")
-    private String Password;
+    private String password;
 
     public User() {
     }
 
     public User(String username, String password) {
-        this.Username = username;
-        this.Password = password;
+        this.username = username;
+        this.password = password;
     }
 
     public String getUsername() {
-        return Username;
+        return username;
     }
 
     public void setUsername(String username) {
-        this.Username = username;
+        this.username = username;
     }
 
     public String getPassword() {
-        return Password;
+        return password;
     }
 
     public void setPassword(String password) {
-        this.Password = password;
+        this.password = password;
     }
 }

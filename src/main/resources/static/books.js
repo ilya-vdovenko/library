@@ -8,8 +8,7 @@ $(document).ready(function(){
     var title_order = "asc";
     var from = 5;
 
-    //$("#author_th").css({'border-style':'solid', 'border-color':'#4db8ff'});
-
+    /*Показать больше. Загружает по 5 записей*/
     $("#showMore").click(function(){
         $.get("/books_list?from="+from+"&by="+by+"&order="+order, function(data) {
             if($.trim($(data).find("#isn").html())=='') {
@@ -23,6 +22,7 @@ $(document).ready(function(){
         });
     });
 
+    /*Сортировка по автору*/
     $("#author_th").click(function() {
 
         title_order="asc";
@@ -40,6 +40,7 @@ $(document).ready(function(){
         else author_order = "desc";
     });
 
+    /*Сортировка по названию*/
     $("#title_th").click(function () {
 
         author_order ="asc";
@@ -57,6 +58,7 @@ $(document).ready(function(){
         else title_order = "desc";
     });
 
+    /*Удаление записи (книги)*/
     $("table #t_body").on('click', '.del', function () {
         var tr = $(this).closest('tr');
         var isn = tr.find('#isn').text();
@@ -73,6 +75,7 @@ $(document).ready(function(){
         }
     });
 
+    /*Вернуть книгу*/
     $("table #t_body").on('click', '.return', function () {
         var tr = $(this).closest('tr');
         var isn = tr.find('#isn').text();
@@ -82,6 +85,7 @@ $(document).ready(function(){
         button.html("взять");
     });
 
+    /*Взять книгу*/
     $("table #t_body").on('click', '.take', function () {
         var tr = $(this).closest('tr');
         var isn = tr.find('#isn').text();
@@ -92,12 +96,14 @@ $(document).ready(function(){
         button.html("вернуть");
     });
 
+    /*Открытие модального окна для добавления записи (книги)*/
     $('#addBtn').click(function(){
         $('#BookModal').load("/books/new .modal",function(){
             $('.modal').modal();
         });
     });
 
+    /*Открытие модального окна для редактирования записи (книги)*/
     $("table #t_body").on('click', '#isn', function () {
         var tr = $(this).closest('tr');
         var isn = tr.find('#isn').text();
@@ -106,6 +112,7 @@ $(document).ready(function(){
         });
     });
 
+    /*Отправка формы*/
     $("#BookModal").on('click', '.send', function (){
         var url = $(this).val();
         $.post(url, $('#book_form').serialize(), function(data) {

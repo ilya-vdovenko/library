@@ -12,26 +12,26 @@
     <script src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
 </head>
 <body>
-<div class="container">
-    <div th:insert="~{/fragments/header :: insert}"></div>
-    <h2>Список книг библиотеки</h2>
-    <button type="button" id="addBtn" class="btn btn-primary text-light">
-        Добавить книгу
-    </button>
-    <table class="table-responsive-md bg-info text-white table-hover ">
-        <thead class="thead-dark">
-        <tr>
-            <th>ISN</th>
-            <th id="author_th">Автор</th>
-            <th id="title_th">Название</th>
-            <th>Кем взята</th>
-            <th>Удалить</th>
-        </tr>
-        </thead>
-        <tbody id="t_body"></tbody>
-    </table>
-    <button id="showMore" type="button" class="btn btn-outline-primary">Показать ещё</button>
-</div>
-<div id="BookModal"></div>
+    <div class="container">
+        <div th:insert="~{/fragments/header :: insert}"></div>
+        <h2>Список книг библиотеки</h2>
+        <button type="button" id="addBtn" class="btn btn-primary text-light">
+            Добавить книгу
+        </button>
+        <table class="table-responsive-md bg-info text-white table-hover ">
+            <thead class="thead-dark">
+            <tr>
+                <th>ISN</th>
+                <th id="author_th">Автор</th>
+                <th id="title_th">Название</th>
+                <th>Кем взята</th>
+                <th>Удалить</th>
+            </tr>
+            </thead>
+            <tbody id="t_body"></tbody>
+        </table>
+        <button id="showMore" type="button" class="btn btn-outline-primary">Показать ещё</button>
+    </div>
+    <div id="BookModal"></div>
 </body>
 </html>

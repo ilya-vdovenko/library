@@ -1,0 +1,36 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <script src="webjars/jquery/3.0.0/jquery.js"></script>
+    <script src="users.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.css"/>
+    <script src="webjars/popper.js/1.14.3/popper.js" ></script>
+    <script src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
+</head>
+<body>
+    <div th:insert="~{/fragments/header :: insert}"></div>
+    <h2>Список пользователей библиотеки</h2>
+    <button type="button" id="addBtn" class="btn btn-primary text-light">
+        Добавить пользователя
+    </button>
+    <table>
+        <thead>
+            <tr>
+                <th>Имя пользователя</th>
+                <th>Удалить</th>
+            </tr>
+        </thead>
+        <tbody id="t_body">
+            <tr id="tr_table" th:each="user : ${user_list}">
+                <td id="name" th:text="${user.username}"></td>
+                <td>
+                    <button class="del" th:value="${user.username}" type="submit">удалить</button>
+                </td>
+            </tr>
+        </tbody>
+    </table>
+    <div id="UserModal"></div>
+</body>
+</html>

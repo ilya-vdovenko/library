@@ -7,10 +7,13 @@ import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseStatus;
 import ru.inleksys.library.model.User;
 import ru.inleksys.library.repository.UserRepository;
 
 import javax.validation.Valid;
+
+import static org.springframework.http.HttpStatus.OK;
 
 @Controller
 public class UserController {
@@ -30,7 +33,7 @@ public class UserController {
 
     @GetMapping("/users/new")
     public String initCreationForm(Model model) {
-        model.addAttribute("book", new User());
+        model.addAttribute("user", new User());
         return "user_form";
     }
 
@@ -45,17 +48,19 @@ public class UserController {
     }
 
     @GetMapping("/users/delete")
-    public String deleteUser(@RequestParam String name) {
+    @ResponseStatus(OK)
+    public void deleteUser(@RequestParam String name) {
         ur.delUser(name);
-        return "redirect:/users";
     }
 
     private String lastName = "";
+    private String lastPass = "";
 
     @GetMapping("/users/edit")
     public String initUpdateBookForm(@RequestParam String name, Model model) {
         User edit_user = ur.findUserByName(name);
         lastName = name;
+        lastPass = edit_user.getPassword();
         model.addAttribute(edit_user);
         return "user_form";
     }
@@ -67,7 +72,7 @@ public class UserController {
             model.addAttribute("user",edit_user);
             return "user_form";
         }
-        ur.editUser(edit_user, lastName);
-        return "redirect:/books";
+        ur.editUser(edit_user, lastName, lastPass);
+        return "redirect:/users";
     }
 }
