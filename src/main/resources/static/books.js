@@ -30,7 +30,7 @@ $(document).ready(function(){
         $("#t_body").load("/books_list?from=0&by=author&order="+author_order+" #tr_table");
 
         $("#title_th").css('background-color','');
-        $(this).css('background-color','#4db8ff');
+        $(this).css('background-color','#2e67ff');
 
         from = 5;
         by = "author";
@@ -48,7 +48,7 @@ $(document).ready(function(){
         $("#t_body").load("/books_list?from=0&by=title&order="+title_order+" #tr_table");
 
         $("#author_th").css('background-color','');
-        $(this).css('background-color','#4db8ff');
+        $(this).css('background-color','#2e67ff');
 
         from = 5;
         by = "title";
@@ -81,7 +81,7 @@ $(document).ready(function(){
         var isn = tr.find('#isn').text();
         $.get("/books/return?isn="+isn);
         var button = tr.find('.return');
-        button.attr('class', 'take');
+        button.attr('class', 'take btn btn-success btn-block');
         button.html("взять");
     });
 
@@ -92,7 +92,7 @@ $(document).ready(function(){
         var button = tr.find('.take');
         var user = button.val();
         $.get("/books/take?isn="+isn+"&whoTake="+user);
-        button.attr('class', 'return');
+        button.attr('class', 'return btn btn-success btn-block');
         button.html("вернуть");
     });
 

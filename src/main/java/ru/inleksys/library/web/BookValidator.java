@@ -34,8 +34,8 @@ public class BookValidator implements Validator {
         }
         catch (Exception exc) {
         }
-        if (ISN.length()<10 | ISN.length()>30) {
-            errors.rejectValue("ISN", "size", "Длинна поля ISN от 10 до 30 знаков");
+        if (ISN.length()<13 | ISN.length()>20) {
+            errors.rejectValue("ISN", "size", "Длинна поля ISN от 13 до 20 знаков");
         }
         if (Author.length()<5 | Author.length()>40) {
             errors.rejectValue("author", "size", "Длинна поля Автор от 5 до 40 знаков");

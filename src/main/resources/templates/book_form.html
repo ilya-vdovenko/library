@@ -2,7 +2,7 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <body>
 <div class="modal fade" id="BookModal">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-dialog-centered">
         <div class="modal-content">
             <div class="modal-header">
                 <h4 class="modal-title" th:with="text=${book.ISN==null} ? 'Добавление новой книги' : 'Изменение книги'"
@@ -17,26 +17,23 @@
                                 th:text="${err}">Input is incorrect</li>
                         </ul>
                     </div>
-                    <label th:class="${#fields.hasErrors('ISN')}? 'error'">
-                        ISN</label>
-                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{ISN}"
+                    <label th:class="${#fields.hasErrors('ISN')}? 'error'">ISN</label>
+                    <input style="margin-left: 10%; width: 60%;" type="text" onchange="this.value = $.trim(this.value)" th:field="*{ISN}"
                            th:class="${#fields.hasErrors('ISN')}? 'error'"/><br/>
-                    <label th:class="${#fields.hasErrors('author')}? 'error'">
-                        Автор</label>
-                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{author}"
+                    <label th:class="${#fields.hasErrors('author')}? 'error'">Автор</label>
+                    <input style="margin-left: 6%; width: 60%;" type="text" onchange="this.value = $.trim(this.value)" th:field="*{author}"
                            th:class="${#fields.hasErrors('author')}? 'error'"/><br/>
-                    <label th:class="${#fields.hasErrors('title')}? 'error'">
-                        Название</label>
-                    <input type="text" onchange="this.value = $.trim(this.value)" th:field="*{title}"
+                    <label th:class="${#fields.hasErrors('title')}? 'error'">Название</label>
+                    <input style="margin-left: 1px; width: 60%;" type="text" onchange="this.value = $.trim(this.value)" th:field="*{title}"
                            th:class="${#fields.hasErrors('title')}? 'error'"/><br/>
                 </form>
                 <div class="modal-footer">
                     <span th:switch="${book.ISN==null}">
                         <span th:case="true">
-                            <button type="submit" class="send btn btn-primary" value="/books/new">Сохранить</button>
+                            <button type="submit" class="send btn btn-success" value="/books/new">Сохранить</button>
                         </span>
                         <span th:case="false">
-                            <button type="submit" class="send btn btn-primary" value="/books/edit">Изменить</button>
+                            <button type="submit" class="send btn btn-success" value="/books/edit">Изменить</button>
                         </span>
                     </span>
                     <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>

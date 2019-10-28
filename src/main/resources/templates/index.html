@@ -2,10 +2,21 @@
 <html xmlns:th="http://www.thymeleaf.org">
 <head>
     <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.css"/>
     <title>Библиотека</title>
 </head>
 <body>
-    <div th:insert="~{/fragments/header :: insert}"></div>
-    <span th:text="'Welcome to library, ' + ${#authentication.getName()} + '!'"></span>
+<div class="container">
+    <div th:insert="~{fragments/header :: insert}"></div>
+    <div class="row">
+        <div class="col-xl-1"></div>
+        <div class="col-xl-10 my-2">
+            <h4 th:text="'Добро пожаловать в библиотеку ' + ${#authentication.getName()} + '.'"></h4>
+            <h5>Используйте ссылки сверху для получения списка книг или пользователей</h5>
+        </div>
+        <div class="col-xl-1"></div>
+    </div>
+</div>
 </body>
 </html>

@@ -25,7 +25,6 @@ public class UserValidator implements Validator {
         User user = (User) obj;
         String username = user.getUsername();
         String password = user.getPassword();
-        System.out.println("from validator:"+lastName);
         try {
             userRepo.findUserByName(user.getUsername());
             if (!username.equals(lastName)) {
@@ -34,8 +33,8 @@ public class UserValidator implements Validator {
         }
         catch (Exception exc) {
         }
-        if (username.length()<5 | username.length()>30) {
-            errors.rejectValue("username", "size", "Длинна поля Имя от 5 до 30 знаков");
+        if (username.length()<5 | username.length()>14) {
+            errors.rejectValue("username", "size", "Длинна поля Имя от 5 до 14 знаков");
         }
         if (password.length()<8 | password.length()>32) {
             errors.rejectValue("password", "size", "Длинна поля Пароль от 8 до 32 знаков");
