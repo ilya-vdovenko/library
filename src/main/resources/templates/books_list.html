@@ -1,0 +1,27 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<table>
+     <tr id="tr_table" th:each="book : ${book_list}">
+         <td class="text-center bg-secondary text-white" style="cursor: pointer" id="isn" th:text="${book.ISN}"></td>
+         <td id="author" th:text="${book.author}"></td>
+         <td id="title" th:text="${book.title}" ></td>
+         <td class="text-center" id="user" th:with="bwt=${book.whoTook}, userAuth=${#authentication.getName()}"
+             th:switch="(${bwt}!=null and ${bwt}!=${userAuth})">
+             <span th:case="true" th:text="${bwt}"></span>
+             <span th:case="false">
+                 <span th:switch="${bwt}==${userAuth}">
+                     <span th:case="true">
+                         <button class="return btn btn-success btn-block" th:value="${userAuth}" type="submit">вернуть</button>
+                     </span>
+                     <span th:case="false">
+                         <button class="take btn btn-success btn-block" th:value="${userAuth}" type="submit">взять</button>
+                     </span>
+                 </span>
+             </span>
+         </td>
+         <td><button class="del btn btn-danger btn-block" type="submit">&times;</button></td>
+     </tr>
+</table>
+</body>
+</html>

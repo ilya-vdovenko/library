@@ -1,0 +1,47 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>Пользователи</title>
+    <script src="webjars/jquery/3.0.0/jquery.js"></script>
+    <script src="users.js"></script>
+    <link rel="stylesheet" href="webjars/bootstrap/4.3.1/css/bootstrap.css"/>
+    <script src="webjars/popper.js/1.14.3/popper.js" ></script>
+    <script src="webjars/bootstrap/4.3.1/js/bootstrap.js"></script>
+</head>
+<body>
+    <div class="container">
+        <div th:insert="~{fragments/header :: insert}"></div>
+        <div class="row">
+            <div class="col-xl-12">
+                <h2 class="mt-3">Список пользователей библиотеки</h2>
+                <button type="button" id="addBtn" class="btn btn-primary text-light my-2">
+                    Добавить пользователя
+                </button>
+            </div>
+        </div>
+        <div class="row">
+            <div class="col-xl-3">
+                <table class="table-sm table-hover">
+                    <thead class="bg-dark text-white">
+                    <tr>
+                        <th class="text-center">Имя пользователя</th>
+                        <th>Удалить</th>
+                    </tr>
+                    </thead>
+                    <tbody id="t_body">
+                    <tr id="tr_table" th:each="user : ${user_list}">
+                        <td id="name" style="cursor: pointer" th:text="${user.username}"></td>
+                        <td>
+                            <button class="del btn btn-danger btn-block" th:value="${user.username}" type="submit">&times;</button>
+                        </td>
+                    </tr>
+                    </tbody>
+                </table>
+            </div>
+            <div class="col-xl-9"></div>
+        </div>
+    </div>
+    <div id="UserModal"></div>
+</body>
+</html>

@@ -1,0 +1,43 @@
+<!DOCTYPE html>
+<html xmlns:th="http://www.thymeleaf.org">
+<body>
+<div class="modal fade" id="UserModal">
+    <div class="modal-dialog modal-dialog-centered">
+        <div class="modal-content">
+            <div class="modal-header">
+                <h4 class="modal-title" th:with="text=${user.username==null} ? 'Добавление новой пользователя' : 'Изменение пользователя'"
+                    th:text="${text}">Операция</h4>
+            </div>
+            <div class="modal-body">
+                <form id="user_form" method="post" th:object="${user}">
+                    <input type="hidden" th:name="${_csrf.parameterName}" th:value="${_csrf.token}" />
+                    <div class="errors" th:if="${#fields.hasErrors('*')}">
+                        <ul>
+                            <li style="color: red" th:each="err : ${#fields.errors('*')}"
+                                th:text="${err}">Input is incorrect</li>
+                        </ul>
+                    </div>
+                    <label th:class="${#fields.hasErrors('username')}? 'error'">Имя пользователя</label>
+                    <input style="margin-left: 2%; width: 60%;" type="text" onchange="this.value = $.trim(this.value)" th:field="*{username}"
+                           th:class="${#fields.hasErrors('username')}? 'error'"/><br/>
+                    <label th:class="${#fields.hasErrors('password')}? 'error'">Пароль</label>
+                    <input style="margin-left: 19%; width: 280px;" type="password" onchange="this.value = $.trim(this.value)" th:field="*{password}"
+                           th:class="${#fields.hasErrors('password')}? 'error'"/><br/>
+                </form>
+                <div class="modal-footer">
+                    <span th:switch="${user.username==null}">
+                        <span th:case="true">
+                            <button type="submit" class="send btn btn-success" value="/users/new">Сохранить</button>
+                        </span>
+                        <span th:case="false">
+                            <button type="submit" class="send btn btn-success" value="/users/edit">Изменить</button>
+                        </span>
+                    </span>
+                    <button type="button" class="btn btn-danger" data-dismiss="modal">Отмена</button>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
