@@ -31,7 +31,7 @@
                     </thead>
                     <tbody id="t_body">
                     <tr id="tr_table" th:each="user : ${user_list}">
-                        <td id="name" th:text="${user.username}"></td>
+                        <td id="name" style="cursor: pointer" th:text="${user.username}"></td>
                         <td>
                             <button class="del btn btn-danger btn-block" th:value="${user.username}" type="submit">&times;</button>
                         </td>
