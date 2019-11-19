@@ -26,7 +26,7 @@ public class UserController {
     }
 
     @InitBinder("user")
-    public void initPetBinder(WebDataBinder dataBinder) {
+    public void initUserBinder(WebDataBinder dataBinder) {
         dataBinder.setValidator(new UserValidator(ur, lastName));
     }
 

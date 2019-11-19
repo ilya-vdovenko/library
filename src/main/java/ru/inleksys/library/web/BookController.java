@@ -25,7 +25,7 @@ public class BookController {
     }
 
     @InitBinder("book")
-    public void initPetBinder(WebDataBinder dataBinder) {
+    public void initBookBinder(WebDataBinder dataBinder) {
         dataBinder.setValidator(new BookValidator(br, lastISN));
     }
 
