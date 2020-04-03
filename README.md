@@ -9,7 +9,7 @@ Representing list of books and users (with authentification through db), and int
 
 ```
 git clone https://github.com/ilya-vdovenko/library.git
-cd livrary
+cd library
 ./mvnw spring-boot:run
 ```
 
