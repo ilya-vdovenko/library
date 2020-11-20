@@ -7,7 +7,7 @@ Representing list of books and users (with authentification through db), and int
 
 ### With Maven command line
 
-```
+```cmd
 git clone https://github.com/ilya-vdovenko/library.git
 cd library
 ./mvnw spring-boot:run
@@ -15,11 +15,11 @@ cd library
 
 ### Use .jar file
 
-```
+```cmd
 java -jar library-<num_of_version>.jar
 ```
 
-You can then access app here: [http://localhost:8080/](http://localhost:8080/).
+You can then access app here: <http://localhost:8080/>.
 Default user - login: '**user1**'; password: '**H@yfU=64**'.
 
 ## License
